@@ -4,18 +4,9 @@
 #define pb push_back
 #define RFOR(a,n) for(int i = a;  i< n; i++)
 #define FOR(n) RFOR(0,n)
-
 using namespace std;
 
-
-
-
-
 int main() {
-
-	#ifndef ONLINE_JUDGE
-	freopen("input.txt", "r", stdin);
-	#endif
 
 
 	//keep in mind we wont use visited in this , because this works for weighted graph and one node's value 
@@ -24,8 +15,6 @@ int main() {
 	int vertices = 9;
 	//stores the edges and weight
 	//adj = {edges,weight};
-	
-
 	vector<pii> adj[vertices];
 	//min_heap
 	priority_queue<pii,vector<pii> , greater<pii> > q;
@@ -34,7 +23,7 @@ int main() {
 	bool vis[vertices] = {0};
 
 
-	FOR(14) 
+	FOR(14)
 	{
 		int u,v,w; cin >>u>>v>>w;
 		adj[u].pb(mp(v,w));
@@ -42,8 +31,11 @@ int main() {
 	}
 
 
+
+
 	//src = source vertex
 	int src = 0;
+	vis[src] = true;
 	q.push(mp(0,src)); // 0 is the initial weight of source vertex
 	dist[src] = 0;
 	//initializing all the other distances INT_MAX
@@ -63,29 +55,20 @@ int main() {
 
 		for(auto i = adj[u].begin(); i != adj[u].end(); i++)
 		{
-			int v = (*i).second;
-			int iweight = (*i).first;
+			int v = (*i).first;
+			int iweight = (*i).second;
+     //        cout <<u <<  "  "<<v<<"  " << iweight<<"  \n";
 
-
-			if(dist[v] > dist[u] + iweight )
+			if( dist[v] > dist[u] + iweight )
 			{
 				dist[v] = dist[u] + iweight;
+				vis[v] = true;
 				q.push(mp(dist[v], v));
 			}
-
 		}
-
 	}
-
 
 	for(auto a : dist) cout <<a <<"\n";
 
-
-
-
 	return 0;
 }
-
-
-
- cout << j << v << wei <<"\n";
